@@ -4,6 +4,7 @@ import Fridge from './pages/fridge/components/Fridge'
 
 import Planner from './pages/planner/components/Planner'
 import Recipes from './pages/recipes/components/Recipes'
+import BottomNavigationBar from './pages/shared/components/BottomNavigationBar'
 import ShoppingCart from './pages/shopping-cart/components/ShoppingCart'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/" element={<Planner />} />
                 <Route path="/recipes" element={<Recipes />} />
             </Routes>
+            <BottomNavigationBar />
         </div>
     )
 }

@@ -3,9 +3,12 @@ import React, { useState, useEffect } from 'react'
 //Components
 import { Checkbox, MenuItem, Select } from '@mui/material'
 
+//Icons
+import { ReactComponent as Delete } from '../../../resources/icons/clear.svg'
+
 //Firebase
 import database from '../../../firebase/Firestore'
-import { ref, set } from 'firebase/database'
+import { ref, set, remove } from 'firebase/database'
 
 //Styles
 import styles from '../styles/shoppingCart.module.scss'
@@ -56,6 +59,10 @@ export default function CartItem({ item, recipes }) {
         set(ref(database, 'ShoppingCart/' + item[1].name), data)
     }
 
+    const handleDeleteItem = () => {
+        remove(ref(database, 'ShoppingCart/' + item[1].name))
+    }
+
     return (
         <div className={`${styles.cartItem} ${styles.cartGrid}`}>
             <Checkbox
@@ -68,16 +75,21 @@ export default function CartItem({ item, recipes }) {
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={forRecipe + ""}
+                value={forRecipe + ''}
                 onChange={handleForRecipeChange}
-                defaultValue={""}
+                defaultValue={''}
                 className={styles.select}
             >
-                <MenuItem value={"--"} >--</MenuItem>
+                <MenuItem value={'--'}>--</MenuItem>
                 {recipes.map((recipe, index) => {
-                    return <MenuItem value={recipe[0]} key={index}>{recipe[0]}</MenuItem>
+                    return (
+                        <MenuItem value={recipe[0]} key={index}>
+                            {recipe[0]}
+                        </MenuItem>
+                    )
                 })}
             </Select>
+            <Delete onClick={handleDeleteItem} className={styles.remove}/>
         </div>
     )
 }

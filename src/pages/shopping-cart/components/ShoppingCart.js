@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 //Components
 import { Button } from '@mui/material'
-import Header from '../../shared/components/Header'
 
 //firebase
 import database from '../../../firebase/Firestore'
@@ -50,12 +49,11 @@ export default function ShoppingCart() {
     }
 
     return (
-        <div>
+        <div className={styles.shoppingCartContainer}>
             <div className={`${styles.cartHeader}`}>
-                ShoppingCart
-                <Header />
+                <h1>Shopping Cart</h1>
             </div>
-            <div className={styles.shoppingCartContainer}>
+            <div >
                 <div className={styles.buttonBar}>
                     <AddToCart />
                     <Button>Select All</Button>

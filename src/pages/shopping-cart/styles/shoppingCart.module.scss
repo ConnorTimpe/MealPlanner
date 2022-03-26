@@ -4,6 +4,7 @@
 }
 
 .shoppingCartContainer {
+    margin-bottom: 50px;
 }
 
 .buttonBar {
@@ -12,7 +13,7 @@
 
 .cartGrid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
     align-items: center;
 }
 
@@ -33,4 +34,9 @@
 
 .select {
     height: 30px;
+}
+
+.remove {
+    margin-left: 8px;
+    cursor: pointer;
 }
