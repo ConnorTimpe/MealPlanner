@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/main.459802c5.css","mappings":"AAAA,kCACI","sources":["pages/recipe-picker/styles/recipePicker.module.scss"],"sourcesContent":[".recipePicker {\r\n    background-color: aquamarine;\r\n}"],"names":[],"sourceRoot":""}
