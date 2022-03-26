@@ -1,0 +1,22 @@
+.cartHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shoppingCartContainer {
+}
+
+.buttonBar {
+    display: flex;
+}
+
+.cartTableHeader {
+    display: flex; //change to grid later
+    * {
+        margin: 8px;
+    }
+}
+
+.cartItem {
+    display: flex;
+}

@@ -5,8 +5,8 @@ export default function Recipe({ recipe }) {
     console.log(recipe)
     return (
         <div key={recipe.id}>
-            <h2>recipe.name</h2>
-            {recipe.ingredients.map((ingredient, index) => {
+            <h2>{recipe.name}</h2>
+            {recipe.ingredients.split(' ,').map((ingredient, index) => {
                 return <div key={index}>{ingredient}</div>
             })}
         </div>

@@ -1,19 +1,19 @@
 import React from 'react'
 
-import { recipies } from '../../../resources/recipies'
 import Recipe from './Recipe'
 
-import Firestore from '../../../firebase/Firestore';
+import database from '../../../firebase/Firestore';
+import AddToCart from './AddToCart';
 
-export default function ShoppingCart({ selectedRecipeIds }) {
+export default function ShoppingCart({ selectedRecipeIds, recipes }) {
     const displayIngredients = () => {
         return selectedRecipeIds.map((recipeId) => {
-            const recipe = recipies.find(
+            const recipe = recipes.find(
                 (recipeSource) => recipeSource.id === recipeId
             )
             console.log('recipe')
             console.log(recipe)
-            return <Recipe recipe={recipe} />
+            return <Recipe recipe={recipe} key={recipe.id}/>
         })
     }
 
@@ -21,7 +21,7 @@ export default function ShoppingCart({ selectedRecipeIds }) {
         <div>
             <h1>Shopping Cart:</h1>
             <div>{displayIngredients()}</div>
-            <Firestore />
+            <AddToCart />
         </div>
     )
 }
