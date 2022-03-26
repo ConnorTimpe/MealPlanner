@@ -10,13 +10,27 @@
     display: flex;
 }
 
+.cartGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+}
+
 .cartTableHeader {
-    display: flex; //change to grid later
-    * {
-        margin: 8px;
-    }
+    // display: flex; //change to grid later
+    // * {
+    //     margin: 8px;
+    // }
 }
 
 .cartItem {
-    display: flex;
+    // display: flex;
+}
+
+.checkbox {
+    justify-self: left;
+}
+
+.select {
+    height: 30px;
 }

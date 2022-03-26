@@ -43,6 +43,7 @@ export default function AddToCart() {
             name: itemName,
             quantity: quantity,
             bought: false,
+            forRecipe: "--"
         }
 
         set(ref(database, 'ShoppingCart/' + itemName), data)

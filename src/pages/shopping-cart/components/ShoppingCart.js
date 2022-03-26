@@ -15,12 +15,13 @@ import CartItem from './CartItem'
 
 export default function ShoppingCart() {
     const [cart, setCart] = useState([])
+    const [recipes, setRecipes] = useState([])
 
     const db = database
 
     useEffect(() => {
-        const recipesRef = ref(db, 'ShoppingCart')
-        onValue(recipesRef, (snapshot) => {
+        const shoppingCartRef = ref(db, 'ShoppingCart')
+        onValue(shoppingCartRef, (snapshot) => {
             const data = snapshot.val()
             let dbCart = []
             Object.entries(data).forEach((entry) => {
@@ -28,17 +29,29 @@ export default function ShoppingCart() {
             })
             setCart(dbCart)
         })
+
+        const recipesRef = ref(db, 'Recipes')
+        onValue(recipesRef, (snapshot) => {
+            const data = snapshot.val()
+            let dbRecipes = []
+            Object.entries(data).forEach((entry) => {
+                dbRecipes.push(entry)
+            })
+            setRecipes(dbRecipes)
+        })
     }, [db])
 
     const displayCartContent = () => {
         console.log('displaying cart content')
         console.log(cart)
-        return cart.map((cartItem, index) => <CartItem key={index} item={cartItem} />)
+        return cart.map((cartItem, index) => (
+            <CartItem key={index} item={cartItem} recipes={recipes} />
+        ))
     }
 
     return (
         <div>
-            <div className={styles.cartHeader}>
+            <div className={`${styles.cartHeader}`}>
                 ShoppingCart
                 <Header />
             </div>
@@ -49,7 +62,7 @@ export default function ShoppingCart() {
                     <Button>Clear All</Button>
                     <Button>Add Selected To Fridge</Button>
                 </div>
-                <div className={styles.cartTableHeader}>
+                <div className={`${styles.cartTableHeader} ${styles.cartGrid}`}>
                     <h3>Bought</h3>
                     <h3>Item</h3>
                     <h3>Quantity</h3>
