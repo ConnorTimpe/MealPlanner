@@ -34,7 +34,7 @@ const validationSchema = yup.object({
     itemQuantity: yup.string('Enter the item quantity').required('Item quantity is required'),
 })
 
-export default function AddToCart() {
+export default function AddToFridge() {
     const [open, setOpen] = React.useState(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
@@ -58,17 +58,17 @@ export default function AddToCart() {
         const data = {
             name: itemName,
             quantity: quantity,
-            bought: false,
+            used: false,
             forRecipe: '--',
         }
 
-        set(ref(database, 'ShoppingCart/' + itemName), data)
+        set(ref(database, 'Fridge/' + itemName), data)
         handleClose()
     }
 
     return (
         <div>
-            <Button onClick={handleOpen}>Add To Cart</Button>
+            <Button onClick={handleOpen}>Add To Fridge</Button>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -88,7 +88,7 @@ export default function AddToCart() {
                                 variant="h6"
                                 component="h2"
                             >
-                                Add Item to the Shopping Cart
+                                Add Item to the Fridge
                             </Typography>
                             <TextField
                                 label="Item Name"

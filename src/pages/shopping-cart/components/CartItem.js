@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 //Components
 import { Checkbox, MenuItem, Select } from '@mui/material'
@@ -13,7 +13,14 @@ import { ref, set, remove } from 'firebase/database'
 //Styles
 import styles from '../styles/shoppingCart.module.scss'
 
-export default function CartItem({ item, recipes }) {
+export default function CartItem({
+    item,
+    recipes,
+    selectAll,
+    clearAll,
+    addSelectedToFridge,
+    fridge,
+}) {
     console.log('cart item')
     console.log(item)
     console.log(recipes)
@@ -55,13 +62,87 @@ export default function CartItem({ item, recipes }) {
         updateCartItem(data)
     }
 
-    const updateCartItem = async (data) => {
-        set(ref(database, 'ShoppingCart/' + item[1].name), data)
-    }
+    const updateCartItem = useCallback(
+        async (data) => {
+            set(ref(database, 'ShoppingCart/' + item[1].name), data)
+        },
+        [item]
+    )
 
     const handleDeleteItem = () => {
         remove(ref(database, 'ShoppingCart/' + item[1].name))
     }
+
+    //////////////////////////
+    // Handle Cart Buttons ///
+    //////////////////////////
+
+    useEffect(() => {
+        if (selectAll) {
+            setIsBought(true)
+
+            const data = {
+                name: item[1].name,
+                quantity: item[1].quantity,
+                bought: true,
+                forRecipe: item[1].forRecipe,
+            }
+
+            updateCartItem(data)
+        }
+    }, [selectAll, item, updateCartItem])
+
+    useEffect(() => {
+        if (clearAll) {
+            setIsBought(false)
+
+            const data = {
+                name: item[1].name,
+                quantity: item[1].quantity,
+                bought: false,
+                forRecipe: item[1].forRecipe,
+            }
+
+            updateCartItem(data)
+        }
+    }, [clearAll, item, updateCartItem])
+
+    const addToFridge = useCallback(
+        async (data) => {
+            console.log('add to fridge with:')
+            console.log(data)
+            let itemInFridge = fridge.find(
+                (fridgeItem) => fridgeItem.name === data.name
+            )
+            console.log(itemInFridge)
+            if (itemInFridge !== undefined) {
+                itemInFridge.quantity = itemInFridge.quantity + data.quantity
+            } else {
+                itemInFridge = { name: data.name, quantity: data.quantity }
+            }
+
+            console.log('itemInFridge')
+            console.log(itemInFridge)
+            set(ref(database, 'Fridge/' + item[1].name), itemInFridge)
+        },
+        [fridge, item]
+    )
+
+    useEffect(() => {
+        if (addSelectedToFridge && isBought) {
+            const data = {
+                name: item[1].name,
+                quantity: item[1].quantity,
+                forRecipe: item[1].forRecipe,
+            }
+
+            addToFridge(data)
+        }
+    }, [addSelectedToFridge, isBought, item, addToFridge])
+
+    // const addToFridge = (data) => {
+    //     console.log("adding to fridge...")
+    // }
 
     return (
         <div className={`${styles.cartItem} ${styles.cartGrid}`}>
@@ -89,7 +170,7 @@ export default function CartItem({ item, recipes }) {
                     )
                 })}
             </Select>
-            <Delete onClick={handleDeleteItem} className={styles.remove}/>
+            <Delete onClick={handleDeleteItem} className={styles.remove} />
         </div>
     )
 }
