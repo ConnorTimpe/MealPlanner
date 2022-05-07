@@ -83,7 +83,7 @@ export default function Fridge() {
     return (
         <div className={generalStyles.container}>
             <div className={`${generalStyles.header}`}>
-                <h1>Shopping Cart</h1>
+                <h1>Fridge</h1>
             </div>
             <div>
                 <div className={generalStyles.buttonBar}>

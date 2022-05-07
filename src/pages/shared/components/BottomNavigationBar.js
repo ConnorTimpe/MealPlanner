@@ -4,10 +4,15 @@ import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import KitchenIcon from '@mui/icons-material/Kitchen';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import KitchenIcon from '@mui/icons-material/Kitchen'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
+import LogoutIcon from '@mui/icons-material/Logout'
+
+//Auth
+import { signOut } from 'firebase/auth'
+import { auth } from '../../../firebase/Firestore'
 
 //Hooks
 import { useNavigate } from 'react-router-dom'
@@ -58,6 +63,12 @@ export default function BottomNavigationBar() {
                     label="Recipes"
                     value={'/recipes'}
                     icon={<MenuBookIcon />}
+                />
+                <BottomNavigationAction
+                    label="Log Out"
+                    // value={'/recipes'}
+                    onClick={() => signOut(auth)}
+                    icon={<LogoutIcon />}
                 />
             </BottomNavigation>
         </Box>

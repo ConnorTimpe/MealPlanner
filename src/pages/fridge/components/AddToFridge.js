@@ -9,6 +9,9 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { TextField } from '@mui/material'
 
+//Uuid
+import { v4 as uuidv4 } from 'uuid';
+
 //Validation
 import * as yup from 'yup'
 import { useFormik } from 'formik'
@@ -62,7 +65,9 @@ export default function AddToFridge() {
             forRecipe: '--',
         }
 
-        set(ref(database, 'Fridge/' + itemName), data)
+        const uuid = uuidv4();
+
+        set(ref(database, 'Fridge/' + uuid), data)
         handleClose()
     }
 

@@ -23,7 +23,7 @@ export default function FridgeItem({
     console.log(fridgeItem)
 
     const [isUsed, setIsUsed] = useState(fridgeItem[1].used)
-    const [forRecipe, setForRecipe] = useState(fridgeItem[1].forRecipe)
+    const [forRecipe, setForRecipe] = useState(fridgeItem[1].forRecipe  || "--")
 
     useEffect(() => {
         setIsUsed(fridgeItem[1].used)
@@ -61,13 +61,13 @@ export default function FridgeItem({
 
     const updateFridgeItem = useCallback(
         async (data) => {
-            set(ref(database, 'Fridge/' + fridgeItem[1].name), data)
+            set(ref(database, 'Fridge/' + fridgeItem[0]), data)
         },
         [fridgeItem]
     )
 
     const handleDeleteItem = () => {
-        remove(ref(database, 'Fridge/' + fridgeItem[1].name))
+        remove(ref(database, 'Fridge/' + fridgeItem[0]))
     }
 
     //////////////////////////

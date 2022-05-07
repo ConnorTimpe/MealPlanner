@@ -21,12 +21,9 @@ export default function CartItem({
     addSelectedToFridge,
     fridge,
 }) {
-    console.log('cart item')
-    console.log(item)
-    console.log(recipes)
 
     const [isBought, setIsBought] = useState(item[1].bought)
-    const [forRecipe, setForRecipe] = useState(item[1].forRecipe)
+    const [forRecipe, setForRecipe] = useState(item[1].forRecipe || "--")
 
     useEffect(() => {
         setIsBought(item[1].bought)
@@ -64,13 +61,14 @@ export default function CartItem({
 
     const updateCartItem = useCallback(
         async (data) => {
-            set(ref(database, 'ShoppingCart/' + item[1].name), data)
+            set(ref(database, 'ShoppingCart/' + item[0]), data)
         },
         [item]
     )
 
     const handleDeleteItem = () => {
-        remove(ref(database, 'ShoppingCart/' + item[1].name))
+        console.log(item)
+        remove(ref(database, 'ShoppingCart/' + item[0]))
     }
 
     //////////////////////////
@@ -123,7 +121,7 @@ export default function CartItem({
 
             console.log('itemInFridge')
             console.log(itemInFridge)
-            set(ref(database, 'Fridge/' + item[1].name), itemInFridge)
+            set(ref(database, 'Fridge/' + item[0]), itemInFridge)
         },
         [fridge, item]
     )
